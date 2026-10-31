@@ -1,0 +1,13 @@
+{
+  "name": "baba-777-free-game",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hindi mobile-first casual game with non-redeemable virtual coins",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
