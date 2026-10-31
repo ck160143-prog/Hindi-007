@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10152d">
+<title>BABA 777 — Free Fun Game</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#151d36;--gold:#ffd76a;--muted:#aab5d4;--line:#2a3658;--cyan:#6ce7f5}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#202d59 0,#0b1020 55%);color:#f8faff;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
+.wrap{max-width:960px;margin:auto;padding:20px 16px 40px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}.logo{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#ffdc77,#ff9f43);color:#251b05;font-size:25px;font-weight:1000;box-shadow:0 8px 30px #ffbf4840}
+h1{font-size:clamp(22px,5vw,34px);margin:0;letter-spacing:.4px}.sub{color:var(--muted);font-size:13px;margin-top:3px}
+.pill{border:1px solid #405078;background:#182443;border-radius:999px;padding:9px 13px;color:#dbe6ff;font-size:12px}
+.hero{margin:25px 0 18px;text-align:center;padding:27px 18px 22px;border:1px solid #34436b;border-radius:26px;background:linear-gradient(150deg,#1a2649,#11182e);box-shadow:0 18px 60px #0004}
+.eyebrow{color:var(--cyan);font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.balance-label{color:var(--muted);margin-top:18px;font-size:14px}.balance{font-size:clamp(42px,10vw,66px);font-weight:950;color:var(--gold);line-height:1.15;text-shadow:0 0 25px #ffd76a22}
+.coins{font-size:18px}.coin-button{margin:24px auto 12px;display:grid;place-items:center;width:min(46vw,190px);aspect-ratio:1;border-radius:50%;border:5px solid #ffe7a3;background:radial-gradient(circle at 32% 25%,#fff2b2,#ffc83e 45%,#d98516 100%);box-shadow:0 0 0 9px #ffcf4620,0 15px 35px #0006;cursor:pointer;color:#4b2a00;transition:transform .12s;user-select:none}
+.coin-button:active{transform:scale(.94)}.coin-button .star{font-size:58px;line-height:1}.coin-button strong{font-size:18px;letter-spacing:1px}.hint{font-size:12px;color:var(--muted)}
+.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:19px}.btn{border:0;border-radius:13px;padding:12px 17px;font-weight:800;cursor:pointer;font-size:14px}.btn-primary{background:linear-gradient(135deg,#ffe28a,#ffb72f);color:#281c03}.btn-secondary{background:#202e51;color:#eaf0ff;border:1px solid #40547f}.btn:disabled{opacity:.45;cursor:not-allowed}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.card{background:#131c33;border:1px solid var(--line);border-radius:20px;padding:19px}.card h2{font-size:17px;margin:0 0 12px}.field{display:flex;gap:8px}.field input{min-width:0;flex:1;border:1px solid #39496f;background:#0c1428;color:white;padding:12px;border-radius:11px;font:inherit}.stat{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #25304b;color:var(--muted);font-size:13px}.stat strong{color:#fff}.leader{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #25304b}.rank{display:grid;place-items:center;background:#243455;border-radius:10px;width:34px;height:34px;font-weight:900;color:var(--gold)}.leader-name{flex:1;min-width:0;overflow-wrap:anywhere}.leader-score{font-weight:800;color:var(--gold)}
+.note{margin-top:16px;border:1px solid #66532b;background:#2b2415;color:#ffe5a0;padding:13px 15px;border-radius:14px;font-size:12px;line-height:1.6}.foot{text-align:center;color:#8190b4;font-size:12px;margin-top:20px}
+.toast{min-height:20px;color:#9ff1cb;font-size:13px;margin-top:8px}
+@media(max-width:620px){.grid{grid-template-columns:1fr}.hero{padding:24px 12px}.wrap{padding:15px 12px 30px}.pill{font-size:11px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="top">
+ <div class="brand"><div class="logo">777</div><div><h1>BABA 777</h1><div class="sub">मज़ा • चुनौती • दोस्ताना मुकाबला</div></div></div>
+ <div class="pill">🎮 फ्री कैज़ुअल गेम</div>
+</header>
+<section class="hero">
+ <div class="eyebrow">Tap Challenge</div>
+ <div class="balance-label">आपके वर्चुअल कॉइन्स</div>
+ <div class="balance" id="balance">0</div>
+ <div class="coins">🪙 कॉइन्स</div>
+ <button class="coin-button" id="tapBtn" aria-label="कॉइन कमाने के लिए टैप करें"><span><span class="star">★</span><br><strong>टैप करो!</strong></span></button>
+ <div class="hint">हर टैप पर 1–5 फ्री कॉइन्स • कोई दाँव नहीं</div>
+ <div class="actions"><button class="btn btn-primary" id="dailyBtn">🎁 आज का बोनस</button><button class="btn btn-secondary" id="saveBtn">🏆 स्कोर सेव करें</button></div>
+ <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</section>
+<div class="grid">
+ <section class="card">
+  <h2>👤 आपका खिलाड़ी</h2>
+  <label class="sub" for="playerName">अपना नाम लिखें</label>
+  <div class="field" style="margin-top:8px"><input id="playerName" maxlength="20" placeholder="जैसे: छोटू"><button class="btn btn-secondary" id="nameBtn">सेव</button></div>
+  <div style="margin-top:15px" class="stat"><span>कुल टैप</span><strong id="tapCount">0</strong></div>
+  <div class="stat"><span>आज का बोनस</span><strong id="bonusStatus">बाकी है</strong></div>
+  <div class="stat"><span>रिकॉर्ड</span><strong>इस डिवाइस पर</strong></div>
+ </section>
+ <section class="card">
+  <h2>🏆 लोकल लीडरबोर्ड</h2>
+  <div class="sub" style="margin-bottom:10px">इस डिवाइस पर सेव किए गए टॉप स्कोर</div>
+  <div id="leaderboard"><div class="sub">अभी कोई स्कोर नहीं—पहला रिकॉर्ड आपका हो सकता है!</div></div>
+ </section>
+</div>
+<div class="note">ℹ️ यह मनोरंजन के लिए फ्री डेमो गेम है। कॉइन्स केवल इसी डिवाइस के ब्राउज़र में सेव होते हैं; इनकी कोई असली नकद कीमत नहीं है। कोई जमा, निकासी, दाँव या पैसे जीतने की सुविधा नहीं है। लीडरबोर्ड अभी केवल इसी डिवाइस पर है—यह ऑनलाइन साझा लीडरबोर्ड नहीं है।</div>
+<div class="foot">BABA 777 • फ्री वर्चुअल कॉइन्स • जिम्मेदारी से खेलें</div>
+</main>
+<script>
+(() => {
+ const $ = (id) => document.getElementById(id);
+ const KEY = "baba777-free-game-v1";
+ const today = () => new Date().toISOString().slice(0,10);
+ let state = {coins:0,taps:0,name:"खिलाड़ी",lastBonus:"",scores:[]};
+ try { const old = JSON.parse(localStorage.getItem(KEY)||"null"); if(old && typeof old==="object") state={...state,...old}; } catch {}
+ state.coins=Math.max(0,Number(state.coins)||0); state.taps=Math.max(0,Number(state.taps)||0);
+ state.scores=Array.isArray(state.scores)?state.scores:[];
+ const save = () => { try { localStorage.setItem(KEY,JSON.stringify(state)); } catch { say("ब्राउज़र स्टोरेज उपलब्ध नहीं है।"); } render(); };
+ const say = (message) => { $("toast").textContent=message; };
+ const safeName = (name) => String(name||"खिलाड़ी").trim().slice(0,20)||"खिलाड़ी";
+ function render(){
+  $("balance").textContent=state.coins.toLocaleString("hi-IN");
+  $("tapCount").textContent=state.taps.toLocaleString("hi-IN");
+  $("playerName").value=state.name;
+  const claimed=state.lastBonus===today();
+  $("bonusStatus").textContent=claimed?"मिल चुका है":"बाकी है";
+  $("dailyBtn").disabled=claimed;
+  $("dailyBtn").textContent=claimed?"✅ बोनस मिल गया":"🎁 आज का बोनस";
+  const entries=[...state.scores].sort((a,b)=>b.score-a.score).slice(0,5);
+  const board=$("leaderboard"); board.replaceChildren();
+  if(!entries.length){const p=document.createElement("div");p.className="sub";p.textContent="अभी कोई स्कोर नहीं—पहला रिकॉर्ड आपका हो सकता है!";board.append(p);return;}
+  entries.forEach((entry,i)=>{const row=document.createElement("div");row.className="leader";const rank=document.createElement("div");rank.className="rank";rank.textContent=String(i+1);const name=document.createElement("div");name.className="leader-name";name.textContent=entry.name;const score=document.createElement("div");score.className="leader-score";score.textContent=Number(entry.score).toLocaleString("hi-IN")+" 🪙";row.append(rank,name,score);board.append(row);});
+ }
+ $("tapBtn").addEventListener("click",()=>{const earned=1+Math.floor(Math.random()*5);state.coins+=earned;state.taps+=1;save();say("शाबाश! +"+earned+" वर्चुअल कॉइन्स 🎉");});
+ $("dailyBtn").addEventListener("click",()=>{if(state.lastBonus===today())return;state.coins+=50;state.lastBonus=today();save();say("आपको 50 फ्री वर्चुअल कॉइन्स मिले! 🎁");});
+ $("nameBtn").addEventListener("click",()=>{state.name=safeName($("playerName").value);save();say("नाम सेव हो गया।");});
+ $("saveBtn").addEventListener("click",()=>{state.name=safeName($("playerName").value);state.scores.push({name:state.name,score:state.coins,date:today()});state.scores=state.scores.sort((a,b)=>b.score-a.score).slice(0,20);save();say("आपका स्कोर इस डिवाइस पर सेव हो गया! 🏆");});
+ render();
+})();
+</script>
+</body>
+</html>
